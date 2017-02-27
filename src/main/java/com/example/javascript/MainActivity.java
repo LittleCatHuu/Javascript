@@ -1,5 +1,7 @@
 package com.example.javascript;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mWebView = (WebView) findViewById(R.id.webview);
         mWebView.getSettings().setJavaScriptEnabled(true);
-        mWebView.loadUrl("web.html");
+        mWebView.loadUrl("file:///android_asset/web.html");
         mWebView.addJavascriptInterface(MainActivity.this,"android");
 
         findViewById(R.id.btn1).setOnClickListener(new View.OnClickListener() {
@@ -52,4 +54,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    @JavascriptInterface
+    public void startPhone(String num){
+        Intent intent=new Intent();
+
+        intent.setAction(Intent.ACTION_CALL);
+        intent.setData(Uri.parse("tel:"+num));
+        startActivity(intent);
+    }
+
 }
